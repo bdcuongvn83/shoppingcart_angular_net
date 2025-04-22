@@ -1,0 +1,91 @@
+<body>
+  <div class="fixed-header">
+    <h1 class="form-title">PRODUCT REGISTER</h1>
+    <div *ngIf="formErrors.length" class="form-errors">
+      <ul>
+        <li *ngFor="let error of formErrors">{{ error }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <form [formGroup]="myForm" (ngSubmit)="handleSubmitForm()">
+    <div class="form-container">
+      <div class="form-row">
+        <div class="form-label">
+          <label>Product Name: </label>
+        </div>
+        <div class="form-item">
+          <input
+            type="text"
+            class="required long"
+            formControlName="productName"
+            placeholder="Enter product name"
+            [class.input-error]="
+              myForm.get('productName')?.invalid &&
+              myForm.get('productName')?.touched
+            "
+          />
+        </div>
+      </div>
+
+      <!-- Product Price -->
+      <div class="form-row">
+        <div class="form-label">
+          <label>Product Price:</label>
+        </div>
+        <div class="form-item">
+          <input
+            type="number"
+            formControlName="productPrice"
+            placeholder="Enter product price"
+            class="short"
+            [class.input-error]="
+              myForm.get('productPrice')?.invalid &&
+              myForm.get('productPrice')?.touched
+            "
+          />
+        </div>
+      </div>
+      <!-- Product Price -->
+      <div class="form-row">
+        <div class="form-label">
+          <label>Description:</label>
+        </div>
+        <div class="form-item">
+          <input
+            type="textarea"
+            formControlName="description"
+            placeholder="Enter Description"
+            class="long"
+            [class.input-error]="
+              myForm.get('decription')?.invalid &&
+              myForm.get('decription')?.touched
+            "
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-label">
+          <label>Upload file: </label>
+        </div>
+        <div class="form-item">
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            id="fileInput"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="fixed-footer">
+      <div class="fixed-footer-item">
+        <button class="btn default" type="submit">Register</button>&nbsp;
+        <button class="btn normal" type="button" (click)="onCancel()">
+          &nbsp; Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</body>
