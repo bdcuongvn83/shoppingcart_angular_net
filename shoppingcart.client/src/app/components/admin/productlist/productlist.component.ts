@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../models/product.model';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteDialogComponent } from '../../../common/confirm-delete-dialog/confirm-delete-dialog.component';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-productlist',
@@ -10,17 +13,14 @@ import { ProductService } from '../../../services/product.service';
   styleUrl: './productlist.component.scss',
 })
 export class ProductlistComponent implements OnInit {
-  constructor(private router: Router, private productService: ProductService) {} // Inject Router
+  constructor(
+    private router: Router,
+    private productService: ProductService,
+    private dialog: MatDialog
+  ) {} // Inject Router
 
   products: Product[] = [];
-  /*************  ✨ Windsurf Command ⭐  *************/
-  /**
-   * Khởi tạo ProductlistComponent View
-   * Gọi API để lấy danh sách sản phẩm từ server
-   *
-   * @returns void
-   */
-  /*******  94d2f625-5724-4c55-9adf-4f908128f3a0  *******/
+
   ngOnInit(): void {
     // Gọi API để lấy danh sách sản phẩm từ server
     // Ví dụ: this.productService.getProducts().subscribe(products => this.products = products);
@@ -41,8 +41,32 @@ export class ProductlistComponent implements OnInit {
     //throw new Error('Method not implemented.');
     this.router.navigate(['/add-product']); // Điều hướng đến route '/add-product'
   }
-  handleDelete(productId: number) {
-    console.log(productId);
+  handleDelete(productId: number, productName: string) {
+    console.log('handleDelete clicked with product:', productId);
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      width: '300px',
+      data: { name: productName },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // nếu người dùng xác nhận xóa
+        this.productService.deleteProduct(productId).subscribe({
+          next: (res: HttpResponse<any>) => {
+            console.log('delete product:', res);
+            console.log('delete product res.status:', res.status);
+            if (res.status === 200) {
+              console.log('delete  successfully:', res);
+              this.products = this.products.filter((p) => p.id !== productId);
+              //this.router.navigate(['/productlist']);//TODO
+            }
+          },
+          error: (err) => {
+            console.error('Error during registration:', err);
+          },
+        });
+      }
+    });
     //throw new Error('Method not implemented.');
   }
   handleEdit(product: Product) {

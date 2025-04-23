@@ -10,6 +10,12 @@ import { OutputImageComponent } from './common/output-image/output-image.compone
 import { ProductlistComponent } from './components/admin/productlist/productlist.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductComponent } from './components/admin/product/product.component';
+import { ConfirmDeleteDialogComponent } from './common/confirm-delete-dialog/confirm-delete-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { CurrencyPipe } from '@angular/common';
+import { HomeComponent } from './components/user/home/home.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +23,8 @@ import { ProductComponent } from './components/admin/product/product.component';
     OutputImageComponent,
     ProductlistComponent,
     ProductComponent,
+    ConfirmDeleteDialogComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,8 +33,11 @@ import { ProductComponent } from './components/admin/product/product.component';
     HeaderComponent,
     FooterComponent,
     ReactiveFormsModule,
+    MatDialogModule,
+    MatIconModule,
+    MatButtonModule,
   ],
-  providers: [],
+  providers: [CurrencyPipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

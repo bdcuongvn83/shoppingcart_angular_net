@@ -30,12 +30,13 @@
         </tr>
     </tbody>
 </table> -->
-
-<app-header></app-header>
-<!-- Header -->
-<main class="main-content">
-  <router-outlet></router-outlet>
-  <!-- Nội dung của từng trang -->
-</main>
-<!-- Footer -->
-<app-footer> </app-footer>
+<div class="main-layout">
+  <app-header class="main-header"></app-header>
+  <!-- Header -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+    <!-- Nội dung của từng trang -->
+  </main>
+  <!-- Footer -->
+  <app-footer class="main-footer"> </app-footer>
+</div>

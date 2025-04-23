@@ -3,29 +3,41 @@ body {
   margin: 0;
   padding: 0;
 }
-
-:host {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Đảm bảo chiều cao tối thiểu bằng chiều cao màn hình */
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-app-header {
-  flex-shrink: 0; /* Header không bị co lại */
+.main-layout {
+  display: grid;
+  /*  grid-template-columns: 100px auto auto 100px;*/
+  grid-template-rows: auto 1fr auto;
+  grid-gap: 10px;
+  height: 100vh;
 }
 
+.main-header {
+  grid-row: 1;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
 .main-content {
-  flex: 1; /* Chiếm toàn bộ không gian còn lại */
-  display: flex;
-  flex-direction: column;
-  min-height: calc(
-    100vh - 110px
-  ); /* Trừ đi chiều cao của header và footer nếu cần */
+  grid-row: 2;
+  padding: 10px;
+  overflow-y: auto;
 }
-
-app-footer {
-  flex-shrink: 0; /* Footer không bị co lại */
-  margin-top: auto; /* Đẩy footer xuống cuối */
+.main-footer {
+  grid-row: 3;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: center;
 }
 
 .main-header-container-flex {
@@ -34,6 +46,79 @@ app-footer {
   align-items: center; /* Căn giữa các phần tử theo chiều dọc */
   padding: 10px; /* Khoảng cách giữa container và các phần tử */
 }
+.left-group {
+  display: flex;
+}
+.right-group {
+  display: flex;
+}
+.main-header-container-flex .item {
+  margin-left: 10px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap; /* Cho phép xuống hàng */
+  gap: 16px; /* Khoảng cách giữa các sản phẩm */
+  justify-content: space-evenly; /* Căn đều các sản phẩm */
+}
+.margin-top {
+  margin-top: 5px;
+}
+.product-item {
+  flex: 1 1 calc(20% - 10px); /* Độ rộng khoảng 25% màn hình trừ đi khoảng cách */
+  max-width: calc(20% - 16px);
+  background: #f0f0f0;
+  padding: 16px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.img_cart {
+  width: 150px;
+  height: auto;
+  object-fit: cover; /* Cắt và giữ trọng tâm */
+  border-radius: 8px; /* Bo góc nhẹ nếu cần */
+}
+
+/* Đảm bảo chiều cao tối thiểu bằng chiều cao màn hình */
+/* :host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+} */
+
+/* Header không bị co lại */
+/* app-header {
+  flex-shrink: 0; 
+} */
+
+/* Trừ đi chiều cao của header và footer nếu cần */
+/* Chiếm toàn bộ không gian còn lại */
+/* .main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 110px);
+} */
+
+/* Footer không bị co lại */
+/* Đẩy footer xuống cuối */
+/* app-footer {
+  flex-shrink: 0; 
+  margin-top: auto; 
+} */
+
+/* Đảm bảo có khoảng cách giữa nhóm bên trái và bên phải */
+/* Căn giữa các phần tử theo chiều dọc */
+/* Khoảng cách giữa container và các phần tử */
+/* .main-header-container-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+} */
 .left-group {
   display: flex;
 }

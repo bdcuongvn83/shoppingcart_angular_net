@@ -118,8 +118,34 @@ namespace shoppingcart.Server.Controllers
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
+
         {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            if (product != null)
+            {
+                if (product.DocId > 0)
+                {
+                    FileEntity file = await _context.FileEntity.FindAsync(product.DocId);
+                    if (file != null)
+                    {
+                        _context.FileEntity.Remove(file);
+                       
+                    }
+                }
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+            }
+            return Ok(new { message = "Updated successful" });
+
+
         }
     }
 }

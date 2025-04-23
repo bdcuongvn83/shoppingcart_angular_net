@@ -27,6 +27,10 @@ export class ProductService {
     }); // Thay đổi đường dẫn API theo yêu cầu của bạn
   }
 
+  deleteProduct(id: number): Observable<HttpResponse<any>> {
+    return this.http.delete(`/api/product/${id}`, { observe: 'response' }); // Thay đổi đường dẫn API theo yêu cầu của bạn
+  }
+
   getProductById(id: number): Observable<Product> {
     return this.http.get<Product>(`/api/product/${id}`); // Thay đổi đường dẫn API theo yêu cầu của bạn
   }

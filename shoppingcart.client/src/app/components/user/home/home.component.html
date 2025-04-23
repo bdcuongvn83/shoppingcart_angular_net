@@ -1,1 +1,25 @@
-<p>home works!</p>
+<div *ngIf="!isLoading && products">
+  <div class="product-list">
+    <div class="product-item" *ngFor="let item of products; let i = index">
+      <app-output-image
+        [docId]="item.docId"
+        [class]="'img_cart'"
+        [altText]="'Not download image'"
+      ></app-output-image>
+
+      <div class="item_label">
+        <!-- <a [routerLink]="['/Users/ProductItemSelect', item.id]" [state]="item"> -->
+        {{ item.productName }}
+        <!-- </a> -->
+      </div>
+
+      <div class="item_price">
+        <span>{{ item.price | currency }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isLoading && (!products || products?.length == 0)">
+  <p class="form-item-error padding-left">No products found.</p>
+</div>

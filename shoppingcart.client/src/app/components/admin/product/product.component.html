@@ -3,7 +3,9 @@
     <h1 class="form-title">PRODUCT REGISTER</h1>
     <div *ngIf="formErrors.length" class="form-errors">
       <ul>
-        <li *ngFor="let error of formErrors">{{ error }}</li>
+        <li *ngFor="let error of formErrors" style="text-align: left">
+          {{ error }}
+        </li>
       </ul>
     </div>
   </div>
