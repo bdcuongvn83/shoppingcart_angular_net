@@ -30,7 +30,8 @@ export class OutputImageComponent {
     this.http
       .get(`/api/file/${docId}`, { responseType: 'blob' })
       .subscribe((data) => {
-        const blob = new Blob([data]); // Thay đổi loại MIME nếu cần
+      const blob = new Blob([data]); // Thay đổi loại MIME nếu cần
+       // const blob = new Blob([data], { type: 'image/jpeg' }); // hoặc 'image/png'
         this.fileUrl = URL.createObjectURL(blob);
         console.log(this.fileUrl);
       });

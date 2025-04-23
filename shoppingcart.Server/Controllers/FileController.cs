@@ -36,6 +36,20 @@ namespace shoppingcart.Server.Controllers
             return File(file.Buffer, contentType);
         }
 
+        [HttpGet("basic/{id}")]
+        public async Task<IActionResult> GetFileBasic(int id)
+        {
+            var file = await _context.FileEntity.FindAsync(id);
+
+            if (file == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new { fileName = file.OriginalName, id = file.Id });
+
+        }
+
         private string GetContentType(string fileName)
         {
             var pro = new FileExtensionContentTypeProvider();

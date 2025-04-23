@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product.model';
 import { HttpResponse } from '@angular/common/http';
+import { FileService } from '../../../services/file.service';
 
 @Component({
   standalone: false, // Đảm bảo đây là standalone component
@@ -23,7 +24,7 @@ export class ProductComponent {
   errorMessage: string | null = null; // Biến lưu thông báo lỗi
   formErrors: string[] = [];
   productId: number = 0; // Biến lưu trữ ID sản phẩm (nếu cần thiết)
-
+  fileUrl: string | undefined; // Biến lưu trữ URL của file đã tải lên
   myForm = new FormGroup({
     productName: new FormControl('', Validators.required),
     productPrice: new FormControl(0, {
@@ -35,12 +36,16 @@ export class ProductComponent {
     categoryName: new FormControl(''),
     description: new FormControl(''),
     docId: new FormControl(0),
+    file: new FormControl(null), // Thêm trường file vào form
   });
+  editMode: boolean = false;
+  fileName: any;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private fileService: FileService
   ) {}
 
   ngOnInit() {
@@ -52,10 +57,28 @@ export class ProductComponent {
       this.productService.getProductById(this.productId).subscribe((data) => {
         console.log('call api getCategories');
         console.log(`data = ${data}`);
-
+        this.editMode = true;
         this.editMyForm(data);
+        this.downloadFileImage(data.docId);
       });
     }
+  }
+
+  downloadFileImage(docId: number) {
+    console.log('downloadFileImage called with docId:', docId);
+    this.fileService.getFile(docId).subscribe((data) => {
+      //console.log('downloadFileImage data:', data);
+
+    //  const blob = new Blob([data]); // Thay đổi loại MIME nếu cần
+      const blob = new Blob([data], { type: 'image/jpeg' }); // hoặc 'image/png'
+      this.fileUrl = URL.createObjectURL(blob);
+      console.log(`fileUrl:${this.fileUrl}`);
+    });
+
+    this.fileService.getFileBasic(docId).subscribe((data) => {
+      console.log('downloadFileImage data:', data);
+      this.fileName = data.fileName;
+    });
   }
 
   onCancel() {
@@ -230,8 +253,16 @@ export class ProductComponent {
     this.myForm.get('description')?.setValue(data.description);
     this.myForm.get('categoryName')?.setValue(data.categoryName);
     this.myForm.get('docId')?.setValue(data.docId);
+
     console.log('editMyForm called with data:', data);
     // Gán giá trị cho các trường trong form từ dữ liệu sản phẩm
     // throw new Error('Function not implemented.');
+  }
+
+  ngOnDestroy() {
+    console.log('ProductComponent destroyed');
+    if (this.fileUrl) {
+      URL.revokeObjectURL(this.fileUrl);
+    }
   }
 }

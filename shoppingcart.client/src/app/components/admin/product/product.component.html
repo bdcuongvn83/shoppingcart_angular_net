@@ -66,13 +66,24 @@
           />
         </div>
       </div>
-      <div class="form-row">
+
+      <div class="form-row" *ngIf="editMode">
+        <div class="form-label">
+          <label>Upload file: </label>
+        </div>
+        <div class="form-item">
+          <a [href]="fileUrl" target="_blank">{{ fileName }}</a>
+        </div>
+      </div>
+
+      <div class="form-row" *ngIf="!editMode">
         <div class="form-label">
           <label>Upload file: </label>
         </div>
         <div class="form-item">
           <input
             type="file"
+            formControlName="file"
             accept="image/*"
             (change)="onFileSelected($event)"
             id="fileInput"
