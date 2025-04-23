@@ -1,11 +1,43 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthloginService } from '../../../services/authlogin.service';
 
 @Component({
   selector: 'app-header',
-  standalone: true, // Đảm bảo đây là standalone component
-  imports: [RouterModule],
+  standalone: false, // Đảm bảo đây là standalone component
+
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  public isLoggedIn: boolean = false;
+
+  constructor(private authService: AuthloginService, private router: Router) {}
+
+  logout() {
+    console.log('isLoggedInNow called');
+    this.authService.isLoggedInNow();
+    console.log('Logout called');
+    this.authService.logout();
+    console.log('isLoggedInNow called');
+    this.authService.isLoggedInNow();
+    //this.router.navigate(['/login']);
+    //throw new Error('Method not implemented.');
+  }
+  /*************  ✨ Windsurf Command ⭐  *************/
+  /**
+ * Lifecycle hook that is called after data-bound properties of a directive
+
+/*******  3c218047-6ddd-48d4-a43e-7fcf17f51430  *******/
+  ngOnInit() {
+    console.log('HeaderComponent initialized');
+    console.log('isLoggedInNow called');
+    this.authService.isLoggedInNow();
+    // Subscribe vào isLoggedIn$ để nhận giá trị khi nó thay đổi
+    this.authService.isLoggedIn$.subscribe((status: boolean) => {
+      this.isLoggedIn = status; // Cập nhật trạng thái login
+    });
+    console.log('isLoggedInNow called');
+    this.authService.isLoggedInNow();
+  }
+}

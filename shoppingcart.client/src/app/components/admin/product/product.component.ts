@@ -12,6 +12,7 @@ import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product.model';
 import { HttpResponse } from '@angular/common/http';
 import { FileService } from '../../../services/file.service';
+import { BaseComponent } from '../../../common/base.component';
 
 @Component({
   standalone: false, // Đảm bảo đây là standalone component
@@ -19,7 +20,7 @@ import { FileService } from '../../../services/file.service';
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
 })
-export class ProductComponent {
+export class ProductComponent extends BaseComponent {
   selectedFile: File | null = null; // Biến lưu trữ file được chọn
   errorMessage: string | null = null; // Biến lưu thông báo lỗi
   formErrors: string[] = [];
@@ -46,7 +47,9 @@ export class ProductComponent {
     private route: ActivatedRoute,
     private productService: ProductService,
     private fileService: FileService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
     console.log('ProductComponent initialized');
@@ -69,7 +72,7 @@ export class ProductComponent {
     this.fileService.getFile(docId).subscribe((data) => {
       //console.log('downloadFileImage data:', data);
 
-    //  const blob = new Blob([data]); // Thay đổi loại MIME nếu cần
+      //  const blob = new Blob([data]); // Thay đổi loại MIME nếu cần
       const blob = new Blob([data], { type: 'image/jpeg' }); // hoặc 'image/png'
       this.fileUrl = URL.createObjectURL(blob);
       console.log(`fileUrl:${this.fileUrl}`);
@@ -173,44 +176,6 @@ export class ProductComponent {
     }
 
     return formDataToSend;
-  }
-
-  private collectFormErrors(formGroup: FormGroup): string[] {
-    const errors: string[] = [];
-
-    Object.keys(formGroup.controls).forEach((key) => {
-      const control = formGroup.get(key);
-      if (control && control.invalid && control.errors) {
-        Object.keys(control.errors).forEach((errorKey) => {
-          let errorMessage = '';
-
-          switch (errorKey) {
-            case 'required':
-              errorMessage = `${key} is required.`;
-              break;
-            case 'minlength':
-              errorMessage = `${key} must be at least ${
-                control.errors![errorKey].requiredLength
-              } characters.`;
-              break;
-            case 'maxlength':
-              errorMessage = `${key} must be at most ${
-                control.errors![errorKey].requiredLength
-              } characters.`;
-              break;
-            case 'email':
-              errorMessage = `${key} must be a valid email.`;
-              break;
-            default:
-              errorMessage = `${key} is invalid.`;
-          }
-
-          errors.push(errorMessage);
-        });
-      }
-    });
-
-    return errors;
   }
 
   // Method to get error messages

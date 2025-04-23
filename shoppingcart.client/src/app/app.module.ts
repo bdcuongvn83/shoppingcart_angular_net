@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CurrencyPipe } from '@angular/common';
 import { HomeComponent } from './components/user/home/home.component';
+import { LoginComponent } from './components/user/login/login.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +26,13 @@ import { HomeComponent } from './components/user/home/home.component';
     ProductComponent,
     ConfirmDeleteDialogComponent,
     HomeComponent,
+    LoginComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    HeaderComponent,
     FooterComponent,
     ReactiveFormsModule,
     MatDialogModule,

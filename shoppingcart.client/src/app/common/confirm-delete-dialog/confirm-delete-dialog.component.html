@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Confirm Delete</h2>
+<mat-dialog-content
+  >Do you want todelete <strong>{{ data.name }}</strong
+  >?</mat-dialog-content
+>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>&nbsp;
+  <button mat-raised-button color="warn" (click)="confirmDelete()">
+    Delete
+  </button>
+</mat-dialog-actions>
