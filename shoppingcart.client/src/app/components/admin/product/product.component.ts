@@ -13,6 +13,7 @@ import { Product } from '../../../models/product.model';
 import { HttpResponse } from '@angular/common/http';
 import { FileService } from '../../../services/file.service';
 import { BaseComponent } from '../../../common/base.component';
+import { ProductAdminService } from '../../../services/admin/product-admin.service';
 
 @Component({
   standalone: false, // Đảm bảo đây là standalone component
@@ -45,7 +46,7 @@ export class ProductComponent extends BaseComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private productService: ProductService,
+    private productService: ProductAdminService,
     private fileService: FileService
   ) {
     super();

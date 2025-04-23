@@ -15,22 +15,6 @@ export class ProductService {
     return this.http.get<Product[]>('/api/product'); // Thay đổi đường dẫn API theo yêu cầu của bạn
   }
 
-  registerProduct(formData: FormData): Observable<HttpResponse<any>> {
-    return this.http.post('/api/product', formData, {
-      observe: 'response',
-    }); // Thay đổi đường dẫn API theo yêu cầu của bạn
-  }
-
-  updateProduct(id: number, formData: FormData): Observable<HttpResponse<any>> {
-    return this.http.put(`/api/product/${id}`, formData, {
-      observe: 'response',
-    }); // Thay đổi đường dẫn API theo yêu cầu của bạn
-  }
-
-  deleteProduct(id: number): Observable<HttpResponse<any>> {
-    return this.http.delete(`/api/product/${id}`, { observe: 'response' }); // Thay đổi đường dẫn API theo yêu cầu của bạn
-  }
-
   getProductById(id: number): Observable<Product> {
     return this.http.get<Product>(`/api/product/${id}`); // Thay đổi đường dẫn API theo yêu cầu của bạn
   }

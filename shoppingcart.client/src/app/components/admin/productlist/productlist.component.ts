@@ -5,6 +5,7 @@ import { ProductService } from '../../../services/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../../../common/confirm-delete-dialog/confirm-delete-dialog.component';
 import { HttpResponse } from '@angular/common/http';
+import { ProductAdminService } from '../../../services/admin/product-admin.service';
 
 @Component({
   selector: 'app-productlist',
@@ -15,7 +16,7 @@ import { HttpResponse } from '@angular/common/http';
 export class ProductlistComponent implements OnInit {
   constructor(
     private router: Router,
-    private productService: ProductService,
+    private productService: ProductAdminService,
     private dialog: MatDialog
   ) {} // Inject Router
 
