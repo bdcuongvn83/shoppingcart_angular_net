@@ -65,26 +65,27 @@ Supports role-based authentication, differentiating access levels for user roles
 
 ## How to run  
 
-
-1. Clone this repository
+1. Clone this repository  
 - 1. install Node.js  
-https://nodejs.org/en
-Downloads Node.js v22.15.0
-- 2. .Net Framework  
-https://visualstudio.microsoft.com/vs/preview/#download-preview
-Install Visual Studio 2022 
-- 3. Using tool Visual studio to run solution  
-Open solution in downloađe repository: 
-![image](https://github.com/user-attachments/assets/6eef3fb5-bcc8-4efc-bc05-e9940aaf3052) 
+https://nodejs.org/en  
+Downloads Node.js v22.15.0  
 
-- 4. Create Database , run script Database.sql to create tables to Microsoft SQL server. 
-✓ install Microsof SQL server is here: https://www.microsoft.com/en-us/sql-server/sql-server-downloads 
+- 2. .Net Framework  
+https://visualstudio.microsoft.com/vs/preview/#download-preview  
+Install Visual Studio 2022  
+- 3. Using tool Visual studio to run solution   
+Open solution in downloađe repository:  
+![image](https://github.com/user-attachments/assets/6eef3fb5-bcc8-4efc-bc05-e9940aaf3052)  
+
+- 4. Create Database , run script Database.sql to create tables to Microsoft SQL server.  
+✓ install Microsof SQL server is here: https://www.microsoft.com/en-us/sql-server/sql-server-downloads  
 ➜ script database.sql in the folder Database\database.sql  
  
-- 5. Run solution from visual studio 
+- 5. Run solution from visual studio  
 ![image](https://github.com/user-attachments/assets/ed0d3bb0-48ab-4ba4-8ff9-39be93988d8d)  
 
-**Automatically start Frondend and backend like below:**
+**Automatically start Frondend and backend like below:**  
+
 ![image](https://github.com/user-attachments/assets/66b1c1c1-2145-4fe7-9b82-e59a7fd93f03)  
 
 Thank you for reviewing the guide! If you have any questions or need clarification, feel free to ask. Your feedback is always welcome to help improve the material.
