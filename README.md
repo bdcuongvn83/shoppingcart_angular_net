@@ -30,6 +30,11 @@ Additional features such as shopping cart and order placement are planned and wi
 - Authentication and Authorization:JWT Json Web Token
 Supports role-based authentication, differentiating access levels for user roles such as "user" and "admin."
 
+**Flow technical for Frondend and Backend of this project:**  
+
+![image](https://github.com/user-attachments/assets/d200fc2b-804b-4a62-bcca-e6c1b41b726d)
+
+
 ## Layout  
 - **Home Screen**   
 ![image](https://github.com/user-attachments/assets/978b3177-e8e6-4123-a4b1-128eb1c26dde)  
