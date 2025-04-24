@@ -1,11 +1,12 @@
 # Features:
 
-- Home Screen: Allows users to search for products.
+The application is a shopping website (Front-end: Angular, Back-end: .NET Framework ) that currently supports essential features such as: 
+- Product Search: Allows users to search for products by name. 
+- Product Management: Includes functionalities to create, update, and delete products. 
+- User Registration & Login: Users can sign up and log in using their credentials. 
+- Authentication: Secured access to APIs using JWT (JSON Web Token) for user verification. 
 
-- Product Screen: Manages CRUD operations for products.
-
-- Login Screen: Supports user login with username and password
-Front-end: Angular, Back-end: .NET Framework
+Additional features such as shopping cart and order placement are planned and will be implemented soon. 
 
 ## Frondend: (Angular)
 **Technical Details:**
