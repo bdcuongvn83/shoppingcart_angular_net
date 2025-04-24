@@ -45,9 +45,13 @@ Supports role-based authentication, differentiating access levels for user roles
 - **Product list(admin): support register/modify/delete product.**  
 ![image](https://github.com/user-attachments/assets/e93badbc-e41b-4687-a8a3-f92d9d76e9c9)  
 
+- **Register Product** 
 ![image](https://github.com/user-attachments/assets/741e1e02-6685-4f24-bd22-7efe7e9c81a4)  
 
-- **Dialog confirm delete**: 
+- **Validate Error**:
+![image](https://github.com/user-attachments/assets/43867fe5-2029-42af-80fd-99f909392850)
+
+- **Dialog confirm delete(Angular Material)**: 
 ![image](https://github.com/user-attachments/assets/729339aa-6109-4cb6-a65d-7632ec4d3a74)  
 
 - **Backend APIs(.Net)**  
@@ -55,10 +59,31 @@ Supports role-based authentication, differentiating access levels for user roles
 
 
 ## Flow ERD  
+
+![image](https://github.com/user-attachments/assets/833976b3-43d0-45c1-9b6d-d6ab4a4ff5ca)
+
 ## How to run  
+
+
+1. Clone this repository
 - 1. install Node.js  
+https://nodejs.org/en
+Downloads Node.js v22.15.0
 - 2. .Net Framework  
+https://visualstudio.microsoft.com/vs/preview/#download-preview
+Install Visual Studio 2022 
 - 3. Using tool Visual studio to run solution  
-- 4. Create Database  
-- 5. Run solution from visual studio  
-- 6. Run solution from cmd.  
+Open solution in downloađe repository: 
+![image](https://github.com/user-attachments/assets/6eef3fb5-bcc8-4efc-bc05-e9940aaf3052) 
+
+- 4. Create Database , run script Database.sql to create tables to Microsoft SQL server. 
+✓ install Microsof SQL server is here: https://www.microsoft.com/en-us/sql-server/sql-server-downloads 
+➜ script database.sql in the folder Database\database.sql  
+ 
+- 5. Run solution from visual studio 
+![image](https://github.com/user-attachments/assets/ed0d3bb0-48ab-4ba4-8ff9-39be93988d8d)  
+
+**Automatically start Frondend and backend like below:**
+![image](https://github.com/user-attachments/assets/66b1c1c1-2145-4fe7-9b82-e59a7fd93f03)  
+
+Thank you for reviewing the guide! If you have any questions or need clarification, feel free to ask. Your feedback is always welcome to help improve the material.
