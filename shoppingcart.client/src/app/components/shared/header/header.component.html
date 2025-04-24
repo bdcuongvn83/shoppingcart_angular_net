@@ -2,14 +2,14 @@
   <div class="main-header-container-flex">
     <div class="left-group">
       <nav>
-        <a routerLink="/">About &nbsp;</a>
+        <a routerLink="/about">About &nbsp;</a>
         <a routerLink="/home">Home &nbsp;</a>
         <a *ngIf="isLoggedIn" routerLink="/productlist">Product List</a>
       </nav>
     </div>
     <div class="right-group">
       <nav>
-        <a *ngIf="isLoggedIn" routerLink="/">Setting &nbsp;</a>
+        <a *ngIf="isLoggedIn" routerLink="/setting">Setting &nbsp;</a>
         <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
         <a
           *ngIf="isLoggedIn"

@@ -18,8 +18,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products">
-        <td></td>
+      <tr *ngFor="let product of products; let index = index">
+        <td>{{ index + 1 }}</td>
         <td>
           <app-output-image
             [docId]="product.docId"
@@ -28,7 +28,7 @@
         </td>
 
         <td>{{ product.productName }}</td>
-        <td>{{ product.price }}</td>
+        <td>{{ product.price | currency }}</td>
         <td>
           <!-- <button (click)="handleEdit(product)">Edit</button>
           <button (click)="handleDelete(product.id, product.productName)">

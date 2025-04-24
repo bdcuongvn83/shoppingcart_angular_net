@@ -5,6 +5,8 @@ import { ProductComponent } from './components/admin/product/product.component';
 import { ProductlistComponent } from './components/admin/productlist/productlist.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { AuthGuard } from './auth.guard';
+import { AboutComponent } from './components/about/about.component';
+import { SettingComponent } from './components/admin/setting/setting.component';
 
 // const routes: Routes = [];
 export const routes: Routes = [
@@ -26,6 +28,8 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   }, // Route for AdminComponent
   { path: 'login', component: LoginComponent }, // Route for AdminComponent
+  { path: 'about', component: AboutComponent }, // Route for HomeComponent
+  { path: 'setting', component: SettingComponent, canActivate: [AuthGuard] }, // Route for SettingComponent
 ];
 
 @NgModule({

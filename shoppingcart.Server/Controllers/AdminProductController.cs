@@ -14,14 +14,15 @@ namespace shoppingcart.Server.Controllers
     public class AdminProductController : ControllerBase
 
     {
-
+        private readonly ILogger<AdminProductController> _logger;
 
         private readonly AppDbContext _context;
         private readonly FileManagerService _fileManagerService;
-        public AdminProductController(AppDbContext context, FileManagerService fileManagerService)
+        public AdminProductController(AppDbContext context, FileManagerService fileManagerService, ILogger<AdminProductController> logger)
         {
             _context = context;
             _fileManagerService = fileManagerService;
+            _logger = logger;
         }
 
         // GET: api/<ValuesController>
@@ -84,39 +85,55 @@ namespace shoppingcart.Server.Controllers
         public async Task<IActionResult> Put(int id, [FromForm] ProductRequest productReq,
         [FromForm] IFormFile? file)
         {
-            using var transaction = await _context.Database.BeginTransactionAsync();
-            //1.insert newdoc
-            int? docId = null;
-            if (file != null)
+            try
             {
-                var fileEntity = await _fileManagerService.SaveFileAsync(file);
-                docId = fileEntity.Id;
+
+                using var transaction = await _context.Database.BeginTransactionAsync();
+                //1.insert newdoc
+                //int? docId = null;
+                //if (file != null)
+                //{
+                //    var fileEntity = await _fileManagerService.SaveFileAsync(file);
+                //    docId = fileEntity.Id;
+                //}
+
+                //2.update product with new docId   
+
+                var product = await _context.Products.FindAsync(id);
+                if (product != null)
+                {
+                    product.CategoryId = productReq.CategoryId;
+                    product.Description = productReq.Description;
+                    product.Price = productReq.Price;
+                    product.ProductName = productReq.ProductName;
+                    //product.DocId = docId;//not update docId
+                    _context.Products.Update(product);
+                }
+
+                //3.remove doc, product
+                //if (productReq.docId > 0)
+                //{
+                //    await _fileManagerService.deleteFile((int)productReq.docId);
+                //}
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+                return Ok(new { message = "Updated successful" });
             }
-
-            //2.update product with new docId   
-
-            var product = await _context.Products.FindAsync(id);
-            if (product != null)
+            catch (Exception ex)
             {
-                product.CategoryId = productReq.CategoryId;
-                product.Description = productReq.Description;
-                product.Price = productReq.Price;
-                product.ProductName = productReq.ProductName;
-                product.DocId = docId;
-                _context.Products.Update(product);
-            }
+                // Ghi log ra console
+                Console.WriteLine("Error during saving: " + ex.Message);
+               
 
-            //3.remove doc, product
-            if (productReq.docId > 0)
-            {
-                await _fileManagerService.deleteFile((int)productReq.docId);
-            }
+                // Hoặc log ra file bằng ILogger (nên dùng)
+                _logger.LogError(ex, "An error occurred while saving data.");
 
-            await _context.SaveChangesAsync();
-            await transaction.CommitAsync();
-            return Ok(new { message = "Updated successful" });
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
 
         }
+
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
@@ -138,7 +155,7 @@ namespace shoppingcart.Server.Controllers
                     if (file != null)
                     {
                         _context.FileEntity.Remove(file);
-                       
+
                     }
                 }
                 _context.Products.Remove(product);

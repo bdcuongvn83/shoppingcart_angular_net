@@ -57,6 +57,7 @@ IServiceCollection serviceCollection =
 
 builder.Services.AddScoped<FileManagerService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<ProductService>();
 
 var app = builder.Build();
 

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../../../common/confirm-delete-dialog/confirm-delete-dialog.component';
 import { HttpResponse } from '@angular/common/http';
+import { SearchProductRequest } from '../../../requests/search.product.request';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,8 @@ import { HttpResponse } from '@angular/common/http';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
+  productName: string | null = null; // Biến lưu trữ tên sản phẩm
+
   products: Product[] = [];
   isLoading: boolean = true;
   constructor(private productService: ProductService) {}
@@ -30,5 +33,21 @@ export class HomeComponent implements OnInit {
       console.log(' call api getProducts done');
       console.log(`data = ${data}`);
     });
+  }
+
+  onSearch() {
+    let searchParam: SearchProductRequest = {
+      ProductName: this.productName || '',
+      pageIndex: 1,
+      sortName: 'name_desc',
+    };
+    this.isLoading = true;
+    this.productService.searchProduct(searchParam).subscribe((data) => {
+      this.products = data;
+      this.isLoading = false;
+      console.log(' call searchProduct  done');
+      console.log(`data = ${data}`);
+    });
+    //throw new Error('Method not implemented.');
   }
 }

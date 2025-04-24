@@ -16,10 +16,12 @@ namespace shoppingcart.Server.Controllers
 
         private readonly AppDbContext _context;
         private readonly FileManagerService _fileManagerService;
-        public ProductController(AppDbContext context, FileManagerService fileManagerService)
+        private readonly ProductService _productService;
+        public ProductController(AppDbContext context, FileManagerService fileManagerService, ProductService productService)
         {
             _context = context;
             _fileManagerService = fileManagerService;
+            _productService = productService;
         }
 
         // GET: api/<ValuesController>
@@ -44,108 +46,12 @@ namespace shoppingcart.Server.Controllers
             return product;
         }
 
-        // public void Post([FromBody] string value)
-        // POST api/<ValuesController>
-        [HttpPost]
-        [Consumes("multipart/form-data")]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> CreateProduct(
-        [FromForm] ProductRequest productReq,
-        [FromForm] IFormFile? file)
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<Product>>> SearchProducts([FromQuery] Requests.ProductSearchRequest request)
         {
-            int? docId = null;
-
-            if (file != null)
-            {
-                var fileEntity = await _fileManagerService.SaveFileAsync(file);
-                docId = fileEntity.Id;
-            }
-            var product = new Product
-            {
-                CategoryId = productReq.CategoryId,
-                Description = productReq.Description,
-                Price = productReq.Price,
-                ProductName = productReq.ProductName,
-                DocId = docId
-            };
-
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-
-            return Created("", new { message = "Insert successful", id = product.Id });
-
+            return await _productService.search(request.sortName??null, request.ProductName, request.pageIndex??1);
+            //  return new string[] { "value1", "value2" };
         }
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> Put(int id, [FromForm] ProductRequest productReq,
-        [FromForm] IFormFile? file)
-        {
-            using var transaction = await _context.Database.BeginTransactionAsync();
-            //1.insert newdoc
-            int? docId = null;
-            if (file != null)
-            {
-                var fileEntity = await _fileManagerService.SaveFileAsync(file);
-                docId = fileEntity.Id;
-            }
-
-            //2.update product with new docId   
-
-            var product = await _context.Products.FindAsync(id);
-            if (product != null)
-            {
-                product.CategoryId = productReq.CategoryId;
-                product.Description = productReq.Description;
-                product.Price = productReq.Price;
-                product.ProductName = productReq.ProductName;
-                product.DocId = docId;
-                _context.Products.Update(product);
-            }
-
-            //3.remove doc, product
-            if (productReq.docId > 0)
-            {
-                await _fileManagerService.deleteFile((int)productReq.docId);
-            }
-
-            await _context.SaveChangesAsync();
-            await transaction.CommitAsync();
-            return Ok(new { message = "Updated successful" });
-
-        }
-
-        // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-
-        {
-            using var transaction = await _context.Database.BeginTransactionAsync();
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            if (product != null)
-            {
-                if (product.DocId > 0)
-                {
-                    FileEntity file = await _context.FileEntity.FindAsync(product.DocId);
-                    if (file != null)
-                    {
-                        _context.FileEntity.Remove(file);
-                       
-                    }
-                }
-                _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
-                await transaction.CommitAsync();
-            }
-            return Ok(new { message = "Updated successful" });
-
-
-        }
     }
 }
