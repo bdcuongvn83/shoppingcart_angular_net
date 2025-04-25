@@ -43,10 +43,17 @@ Supports role-based authentication, differentiating access levels for user roles
 ![image](https://github.com/user-attachments/assets/2191dbcd-4e00-4ebd-b689-0e5333e1f183)  
 
 - **Login**:  
-![image](https://github.com/user-attachments/assets/6a72837a-f425-4e48-af7a-ad4942fdbe85)  
+![image](https://github.com/user-attachments/assets/7f389665-67b4-427b-a6cf-eaf4674cf6de)
 
-- **After login:**  
-![image](https://github.com/user-attachments/assets/fed7a950-d7d2-4f89-baf9-235ad044358e)  
+
+- **After login:**   
+![image](https://github.com/user-attachments/assets/591bc33b-5cd8-4ae9-b385-e274b04d86c9)  
+
+-**Register**  
+![image](https://github.com/user-attachments/assets/88e49ae9-1f15-4c91-b956-46ca2cbcc5f3)  
+
+**After register:**  
+![image](https://github.com/user-attachments/assets/b51015ca-e257-4477-a39d-580f5c335ad2)  
 
 - **Product list(admin): support register/modify/delete product.**  
 ![image](https://github.com/user-attachments/assets/e93badbc-e41b-4687-a8a3-f92d9d76e9c9)  
