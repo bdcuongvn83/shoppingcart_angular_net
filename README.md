@@ -44,10 +44,10 @@
 - **After login:**   
 ![image](https://github.com/user-attachments/assets/591bc33b-5cd8-4ae9-b385-e274b04d86c9)  
 
--**Register**  
+-**Register User**  
 ![image](https://github.com/user-attachments/assets/88e49ae9-1f15-4c91-b956-46ca2cbcc5f3)  
 
-**After register:**  
+**After register User:**  
 ![image](https://github.com/user-attachments/assets/b51015ca-e257-4477-a39d-580f5c335ad2)  
 
 - **Product list(admin): support register/modify/delete product.**  
@@ -72,23 +72,24 @@
 
 ## How to run  
 
-1. Clone this repository  
-- 1. install Node.js  
+1) Clone this repository  
+2) install Node.js  
 https://nodejs.org/en  
 Downloads Node.js v22.15.0  
 
-- 2. .Net Framework  
+3) install .Net Framework  
 https://visualstudio.microsoft.com/vs/preview/#download-preview  
 Install Visual Studio 2022  
-- 3. Using tool Visual studio to run solution   
+
+4) Using tool Visual studio to run solution   
 Open solution in downloađe repository:  
 ![image](https://github.com/user-attachments/assets/6eef3fb5-bcc8-4efc-bc05-e9940aaf3052)  
 
-- 4. Create Database , run script Database.sql to create tables to Microsoft SQL server.  
+5) Create Database , run script Database.sql to create tables to Microsoft SQL server.  
 ✓ install Microsof SQL server is here: https://www.microsoft.com/en-us/sql-server/sql-server-downloads  
 ➜ script database.sql in the folder Database\database.sql  
  
-- 5. Run solution from visual studio  
+6)  Run solution from visual studio  
 ![image](https://github.com/user-attachments/assets/ed0d3bb0-48ab-4ba4-8ff9-39be93988d8d)  
 
 **Automatically start Frondend and backend like below:**  
