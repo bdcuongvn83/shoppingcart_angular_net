@@ -1,3 +1,4 @@
+A fullstack shopping web application built with Angular and ASP.NET Core Web API.
 
 # ✨ Core Features:
 
