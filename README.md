@@ -1,34 +1,29 @@
-# Features:
 
-The application is a shopping website (Front-end: Angular, Back-end: .NET Framework ) that currently supports essential features such as: 
-- Product Search: Allows users to search for products by name. 
-- Product Management: Includes functionalities to create, update, and delete products. 
-- User Registration & Login: Users can sign up and log in using their credentials. 
-- Authentication: Secured access to APIs using JWT (JSON Web Token) for user verification. 
+# ✨ Core Features:
 
-Additional features such as shopping cart and order placement are planned and will be implemented soon. 
+🔍 Product search by name
 
-## Frondend: (Angular)
-**Technical Details:**
+🛠️ Admin product management (Create, Read, Update, Delete)
 
-- Authentication: Secures API endpoints using JWT (JSON Web Token) to ensure proper authorization.  
-- Product Search: Implements search functionality for products by name using Entity Framework Core.  
-- Role-Based Authorization: Differentiates functionality based on login status (e.g., guest vs. logged-in users). 
-- CanActivate / Authguard: Ensures some menus or pages require login using route guards. 
-- Reactive Forms Validation: Utilizes Angular Reactive Forms for input validation. 
-- Angular Material: Uses Angular Material components for buttons and UI elements.  
-- CSS: Designs the interface using custom CSS for styling. 
-- Interceptor: Implements an interceptor to add the JWT token in API calls for authentication. 
-- Observables and Subjects: Implements Observables and BehaviorSubject for managing events related to user login status. 
-- All api services are designed with Observable techniques to handle asynchronous events. 
+🔐 User registration & login with JWT-based authentication
 
-## Backend: (.NET)  
-**Technical Details:**
+👥 Role-based access control (User vs Admin)
 
-- Provides API endpoints for user registration, product management, and CRUD operations. 
-- Supports product search through Entity Framework Core and raw SQL queries. 
-- Authentication and Authorization:JWT Json Web Token
-Supports role-based authentication, differentiating access levels for user roles such as "user" and "admin."
+🛡️ Route protection using Angular AuthGuard
+
+🎨 UI built with Angular Material & custom CSS
+
+🔄 JWT token interceptor and login state managed via BehaviorSubject
+
+⚙️ Tech Stack Highlights:
+
+- Frontend: Angular 15+, RxJS, Reactive Forms, Angular Material
+
+- Backend: ASP.NET Core Web API, Entity Framework Core, JWT Auth
+
+- Architecture: RESTful APIs with secure authentication and observables for state handling
+
+🛒 Currently working on shopping cart and order placement features — stay tuned!
 
 **Flow technical for Frondend and Backend of this project:**  
 
