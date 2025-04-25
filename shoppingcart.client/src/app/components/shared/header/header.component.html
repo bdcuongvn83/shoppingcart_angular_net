@@ -8,17 +8,20 @@
       </nav>
     </div>
     <div class="right-group">
-      <nav>
-        <a *ngIf="isLoggedIn" routerLink="/setting">Setting &nbsp;</a>
-        <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
-        <a
-          *ngIf="isLoggedIn"
-          routerLink="/home"
-          class="logout"
-          (click)="logout()"
-          >Logout</a
-        >
-      </nav>
+      <span class="userName">{{ loginUser?.username }}</span> &nbsp;
+      <a
+        *ngIf="isLoggedIn"
+        style="margin-top: -10px"
+        routerLink="/setting"
+        mat-icon-button
+      >
+        <mat-icon>account_circle</mat-icon>
+        &nbsp;</a
+      >
+      <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
+      <a *ngIf="isLoggedIn" routerLink="/home" class="logout" (click)="logout()"
+        >Logout</a
+      >
     </div>
   </div>
 </header>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using shoppingcart.Server.dto;
+using shoppingcart.Server.Exceptions;
 using shoppingcart.Server.models;
 using shoppingcart.Server.Requests;
 using shoppingcart.Server.Services;
@@ -22,7 +23,7 @@ namespace shoppingcart.Server.Controllers
             _context = context;
             _authService = authService;
         }
-       
+
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
         public string Get(int id)
@@ -32,29 +33,37 @@ namespace shoppingcart.Server.Controllers
 
         // POST api/<ValuesController>
         [HttpPost]
-        public async Task<IActionResult>  Post([FromBody] Requests.LoginRequest loginRequest)
+        public async Task<IActionResult> Post([FromBody] Requests.LoginRequest loginRequest)
         {
             var userDto = new UserDto();
-            userDto.Username = loginRequest.Username;   
+            userDto.Username = loginRequest.Username;
             userDto.Password = loginRequest.Password;
             userDto.Role = loginRequest.Role;
 
+            try
+            {
+                var user = await _authService.Register(userDto);
+                return Created("", new { message = "Insert successful", data = new UserResponse(user) });
 
-            var user = await _authService.Register(userDto);
-            return Created("", new { message = "Insert successful", id = user.Id });
+            }
+            catch (AppException ex)
+            {
+                return BadRequest(new { message = "User already exists" });
+            }
+
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] Requests.LoginRequest loginRequest)
         {
-           
-            var user = await _context.Users.FirstOrDefaultAsync(item => item.Username== loginRequest.Username);
-           if(user == null || !VerifyPassword(loginRequest.Password, user.PasswordHash, user.PasswordSalt))
+
+            var user = await _context.Users.FirstOrDefaultAsync(item => item.Username == loginRequest.Username);
+            if (user == null || !VerifyPassword(loginRequest.Password, user.PasswordHash, user.PasswordSalt))
             {
                 return NotFound(new { message = "User not found" });
             }
 
-            return Ok(new { jwt = _authService.GenerateToken(user) });
+            return Ok(new { jwt = _authService.GenerateToken(user),data = new UserResponse(user) });
 
             //return Created("", new { message = "Insert successful", id = user.Id });
         }

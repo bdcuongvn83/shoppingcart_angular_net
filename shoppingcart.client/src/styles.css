@@ -11,7 +11,6 @@ body {
   overflow-y: hidden; /* hoặc hidden nếu bạn muốn loại luôn scroll dọc */
 }
 
-
 .main-layout {
   display: grid;
   /*  grid-template-columns: 100px auto auto 100px;*/
@@ -327,4 +326,13 @@ select.short {
 .input-error {
   border: 1px solid red !important;
   /* background-color: #ffe6e6; */
+}
+
+.userName {
+  color: #666666; /* màu xám nhẹ, phổ biến trong UI hiện đại */
+  font-size: 0.875rem; /* khoảng 14px, phù hợp cho secondary info */
+  font-weight: 400; /* không đậm */
+  font-family: "Roboto", sans-serif; /* font phổ biến */
+  /* margin-left: 4px; */
+  vertical-align: middle;
 }

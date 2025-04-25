@@ -20,6 +20,7 @@ import { LoginComponent } from './components/user/login/login.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { AboutComponent } from './components/about/about.component';
 import { SettingComponent } from './components/admin/setting/setting.component';
+import { LoginRegisterComponent } from './components/user/loginregister/loginregister.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SettingComponent } from './components/admin/setting/setting.component';
     HeaderComponent,
     AboutComponent,
     SettingComponent,
+    LoginRegisterComponent,
   ],
   imports: [
     BrowserModule,

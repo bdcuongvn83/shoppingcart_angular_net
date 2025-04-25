@@ -69,24 +69,18 @@ export class ProductComponent extends BaseComponent {
   }
 
   downloadFileImage(docId: number) {
-    console.log('downloadFileImage called with docId:', docId);
     this.fileService.getFile(docId).subscribe((data) => {
-      //console.log('downloadFileImage data:', data);
-
       //  const blob = new Blob([data]); // Thay đổi loại MIME nếu cần
       const blob = new Blob([data], { type: 'image/jpeg' }); // hoặc 'image/png'
       this.fileUrl = URL.createObjectURL(blob);
-      console.log(`fileUrl:${this.fileUrl}`);
     });
 
     this.fileService.getFileBasic(docId).subscribe((data) => {
-      console.log('downloadFileImage data:', data);
       this.fileName = data.fileName;
     });
   }
 
   onCancel() {
-    console.log('Cancel button clicked');
     this.myForm.reset(); // Đặt lại form về trạng thái ban đầu
     this.selectedFile = null; // Đặt lại file đã chọn
     this.errorMessage = null; // Đặt lại thông báo lỗi
@@ -100,42 +94,41 @@ export class ProductComponent extends BaseComponent {
   // Gọi API để lấy danh sách sản phẩm từ server
 
   handleSubmitForm() {
-    console.log('handleSubmitForm called');
-    console.log(this.myForm.value);
+    // console.log('handleSubmitForm called');
+    // console.log(this.myForm.value);
     if (this.myForm.valid) {
-      console.log('Form submitted:', this.myForm.value);
       this.formErrors = []; // Clear errors if any
     } else {
       this.formErrors = this.collectFormErrors(this.myForm);
-      console.log('Form errors:', this.formErrors);
+
       this.myForm.markAllAsTouched(); // Để highlight các ô lỗi
       return;
     }
 
-    console.log(' handleSubmitForm  submit');
+    // console.log(' handleSubmitForm  submit');
     const formDataToSend = this.prepareFormData();
     if (this.productId > 0) {
-      console.log(' update');
       //update
       this.productService
         .updateProduct(this.productId, formDataToSend)
         .subscribe({
           next: (res: HttpResponse<any>) => {
-            console.log('Update product:', res);
-            console.log('Update product res.status:', res.status);
             if (res.status === 200) {
-              console.log('Update  successfully:', res);
+              // console.log('Update  successfully:', res);
               this.router.navigate(['/productlist']);
             }
           },
           error: (err) => {
             console.error('Error during registration:', err);
+            this.formErrors.push(
+              err.error.message || 'Invalid username or password'
+            );
           },
         });
     } else {
       this.productService.registerProduct(formDataToSend).subscribe({
         next: (res: HttpResponse<any>) => {
-          console.log('registerProduct product res.status:', res.status);
+          // console.log('registerProduct product res.status:', res.status);
           if (res.status === 201) {
             console.log('Product registered successfully:', res);
             this.router.navigate(['/productlist']);
@@ -143,6 +136,9 @@ export class ProductComponent extends BaseComponent {
         },
         error: (err) => {
           console.error('Error during registration:', err);
+          this.formErrors.push(
+            err.error.message || 'Invalid username or password'
+          );
         },
       });
     }
@@ -179,20 +175,6 @@ export class ProductComponent extends BaseComponent {
     return formDataToSend;
   }
 
-  // Method to get error messages
-  // getErrorMessage(controlName: string): string | null {
-  //   console.log('getErrorMessage:' + controlName);
-  //   const control = this.productForm.get(controlName);
-  //   console.log(control);
-  //   if (control?.hasError('required')) {
-  //     return `${controlName} is required.`;
-  //   }
-  //   if (control?.hasError('max')) {
-  //     return `${controlName}  must be greater than 0.`;
-  //   }
-  //   return null;
-  // }
-
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -208,7 +190,7 @@ export class ProductComponent extends BaseComponent {
       // Nếu hợp lệ, lưu file
       this.selectedFile = file;
       this.errorMessage = null;
-      console.log('Selected file:', this.selectedFile);
+      // console.log('Selected file:', this.selectedFile);
     }
   }
   editMyForm(data: Product) {
@@ -221,12 +203,10 @@ export class ProductComponent extends BaseComponent {
     this.myForm.get('docId')?.setValue(data.docId);
 
     console.log('editMyForm called with data:', data);
-    // Gán giá trị cho các trường trong form từ dữ liệu sản phẩm
-    // throw new Error('Function not implemented.');
   }
 
   ngOnDestroy() {
-    console.log('ProductComponent destroyed');
+    // console.log('ProductComponent destroyed');
     if (this.fileUrl) {
       URL.revokeObjectURL(this.fileUrl);
     }

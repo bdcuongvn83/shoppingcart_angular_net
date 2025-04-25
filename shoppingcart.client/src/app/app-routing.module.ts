@@ -7,6 +7,7 @@ import { LoginComponent } from './components/user/login/login.component';
 import { AuthGuard } from './auth.guard';
 import { AboutComponent } from './components/about/about.component';
 import { SettingComponent } from './components/admin/setting/setting.component';
+import { LoginRegisterComponent } from './components/user/loginregister/loginregister.component';
 
 // const routes: Routes = [];
 export const routes: Routes = [
@@ -30,6 +31,8 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent }, // Route for AdminComponent
   { path: 'about', component: AboutComponent }, // Route for HomeComponent
   { path: 'setting', component: SettingComponent, canActivate: [AuthGuard] }, // Route for SettingComponent
+
+  { path: 'register', component: LoginRegisterComponent },
 ];
 
 @NgModule({

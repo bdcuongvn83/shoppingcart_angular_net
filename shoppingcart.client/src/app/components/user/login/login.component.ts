@@ -16,7 +16,7 @@ export class LoginComponent extends BaseComponent {
   myForm = new FormGroup({
     UserName: new FormControl('', Validators.required),
 
-    Password: new FormControl(0, Validators.required),
+    Password: new FormControl('', Validators.required),
   });
 
   /*************  ✨ Windsurf Command ⭐  *************/
@@ -53,7 +53,8 @@ export class LoginComponent extends BaseComponent {
           console.log(
             `Login current status isLoggedInNow:${this.authService.isLoggedInNow()}`
           );
-          this.authService.setInfoLoginSucces(res.body.jwt);
+          console.log('Login current res.body.data', res.body.data);
+          this.authService.setInfoLoginSucces(res.body.jwt, res.body.data);
 
           console.log('Login successfully:');
           console.log(

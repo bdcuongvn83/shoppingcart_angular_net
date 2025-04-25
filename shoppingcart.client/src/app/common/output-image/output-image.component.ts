@@ -23,22 +23,18 @@ export class OutputImageComponent {
     if (this.fileUrl) {
       URL.revokeObjectURL(this.fileUrl);
     }
-    console.log('OutputImageComponent destroyed');
   }
   downloadFileImage(docId: number) {
-    console.log('downloadFileImage called with docId:', docId);
     this.http
       .get(`/api/file/${docId}`, { responseType: 'blob' })
       .subscribe((data) => {
-      const blob = new Blob([data]); // Thay đổi loại MIME nếu cần
-       // const blob = new Blob([data], { type: 'image/jpeg' }); // hoặc 'image/png'
+        const blob = new Blob([data]); // Thay đổi loại MIME nếu cần
+        // const blob = new Blob([data], { type: 'image/jpeg' }); // hoặc 'image/png'
         this.fileUrl = URL.createObjectURL(blob);
-        console.log(this.fileUrl);
       });
   }
 
   ngOnInit() {
-    console.log('OutputImageComponent initialized');
     this.downloadFileImage(this.docId);
   }
 }

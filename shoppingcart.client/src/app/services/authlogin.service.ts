@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginResponse } from '../reponses/login.response';
-import { LoginResult } from '../reponses/login.result';
+
+import { LoginUser } from '../data/loginUser.data';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,10 @@ import { LoginResult } from '../reponses/login.result';
 export class AuthloginService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.loggedIn.asObservable();
+
+  private userLogin = new BehaviorSubject<LoginUser | null>(null);
+  userLogin$ = this.userLogin.asObservable();
+
   private redirectUrl: string | null = null;
 
   constructor(private http: HttpClient) {
@@ -26,31 +31,12 @@ export class AuthloginService {
     console.log('isLoggedIn$:', this.isLoggedIn$);
   }
 
-  /*************  ✨ Windsurf Command ⭐  *************/
-  /**
-   * Login
-   * @param formData Form data sent to the server, with 'userName' and 'password' fields.
-   * @returns An observable of the server response, with the response body containing the JWT token.
-   */
-  /*******  8c19aa04-e0e7-4d27-b4fa-6d4260ea7470  *******/
-  //login(formGroup: FormGroup): Observable<HttpResponse<any>> {
-  // login(formGroup: FormGroup): Observable<LoginResult> {
-  //   this.http
-  //     .post<LoginResponse>('/api/login/login', formGroup, {
-  //       observe: 'response',
-  //     })
-  //     .subscribe((res) => {
-  //       console.log('Login response:', res);
-  //       if (res.status === 200) {
-  //         const token = res?.body?.jwt || '';
-  //         this.loggedIn.next(true); // Update the loggedIn status
-  //         localStorage.setItem('jwt', token); // Store the token in local storage
-  //         return { success: true };
-  //       }
-  //     });
+  register(formGroup: FormGroup): Observable<any> {
+    return this.http.post<LoginResponse>('/api/login/', formGroup.value, {
+      observe: 'response',
+    });
+  }
 
-  //   return false;
-  // }
   login(formGroup: FormGroup): Observable<any> {
     return this.http.post<LoginResponse>('/api/login/login', formGroup.value, {
       observe: 'response',
@@ -59,7 +45,7 @@ export class AuthloginService {
 
   logout() {
     this.loggedIn.next(false); // Update the loggedIn status
-
+    this.userLogin.next(null); // Update the loggedIn status
     // Check if the token exists in local storage
     const token = localStorage.getItem('jwt');
     if (token) {
@@ -69,14 +55,20 @@ export class AuthloginService {
 
     // localStorage.removeItem('jwt'); // Store the token in local storage
   }
-  setInfoLoginSucces(jwt: string) {
+  setInfoLoginSucces(jwt: string, item?: LoginUser) {
     this.loggedIn.next(true); // Update the loggedIn status
     localStorage.setItem('jwt', jwt); // Store the token in local storage
+    // console.log('setInfoLoginSucces called');
+    // console.log('isLoggedIn:', this.loggedIn.value);
+    // console.log('userLogin:', this.userLogin.value);
+    // console.log('item:', item);
+    this.userLogin.next(item || null); // Update the userLogin status
+    // console.log('userLogin:', this.userLogin.value);
   }
 
   isLoggedInNow(): boolean {
-    console.log('isLoggedInNow called');
-    console.log('isLoggedIn:', this.loggedIn.value);
+    // console.log('isLoggedInNow called');
+    // console.log('isLoggedIn:', this.loggedIn.value);
     return this.loggedIn.value;
   }
   setRedirectUrl(url: string | null) {

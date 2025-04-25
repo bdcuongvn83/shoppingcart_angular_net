@@ -11,6 +11,7 @@ import { AuthloginService } from '../../../services/authlogin.service';
 })
 export class HeaderComponent {
   public isLoggedIn: boolean = false;
+  public loginUser: any = {}; // Để lưu thông tin người dùng đã đăng nhập
 
   constructor(private authService: AuthloginService, private router: Router) {}
 
@@ -36,6 +37,9 @@ export class HeaderComponent {
     // Subscribe vào isLoggedIn$ để nhận giá trị khi nó thay đổi
     this.authService.isLoggedIn$.subscribe((status: boolean) => {
       this.isLoggedIn = status; // Cập nhật trạng thái login
+    });
+    this.authService.userLogin$.subscribe((user: any) => {
+      this.loginUser = user; // Cập nhật thông tin người dùng
     });
     console.log('isLoggedInNow called');
     this.authService.isLoggedInNow();
