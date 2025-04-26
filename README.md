@@ -63,7 +63,8 @@ A fullstack shopping web application built with Angular and ASP.NET Core Web API
 ![image](https://github.com/user-attachments/assets/729339aa-6109-4cb6-a65d-7632ec4d3a74)  
 
 - **Backend APIs(.Net)**  
-![image](https://github.com/user-attachments/assets/a19a8dcc-4354-4193-bfa6-2bf1d7df4603)
+![image](https://github.com/user-attachments/assets/006112ae-587d-45e2-958e-b1b8eba1c09f)
+
 
 
 ## Flow ERD  
