@@ -28,8 +28,7 @@ A fullstack shopping web application built with Angular and ASP.NET Core Web API
 
 **Flow technical for Frondend and Backend of this project:**  
 
-![image](https://github.com/user-attachments/assets/d200fc2b-804b-4a62-bcca-e6c1b41b726d)
-
+![JWT_flow drawio](https://github.com/user-attachments/assets/34db9f09-0668-4f4b-8c0f-55955a8b0396)
 
 ## Layout  
 - **Home Screen**   
