@@ -1,11 +1,20 @@
 <form (ngSubmit)="onSearch()">
-  <p>
+  <div class="search-box">
     <label>ProductName:</label>
     <input type="text" [(ngModel)]="productName" name="productName" required />
 
-    <input type="submit" value="Filter" />
-  </p>
+    <button
+      mat-icon-button
+      matSuffix
+      type="submit"
+      class="search-button"
+      [disabled]="isLoading"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
 </form>
+<span class="spinner" *ngIf="isLoading"></span>
 <div *ngIf="!isLoading && products">
   <div class="product-list">
     <div class="product-item" *ngFor="let item of products; let i = index">

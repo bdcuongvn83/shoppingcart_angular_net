@@ -51,13 +51,11 @@ namespace shoppingcart.Server.Controllers
         // POST api/<ValuesController>
         [HttpPost]
         [Consumes("multipart/form-data")]
-        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> CreateProduct(
-        [FromForm] ProductRequest productReq,
-        [FromForm] IFormFile? file)
+        [FromForm] ProductRequest productReq)
         {
             int? docId = null;
-
+            var file = productReq.file;
             if (file != null)
             {
                 var fileEntity = await _fileManagerService.SaveFileAsync(file);
@@ -81,23 +79,14 @@ namespace shoppingcart.Server.Controllers
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<IActionResult> Put(int id, [FromForm] ProductRequest productReq,
-        [FromForm] IFormFile? file)
+      
+        public async Task<IActionResult> Put(int id, [FromForm] ProductRequest productReq)
         {
             try
             {
 
                 using var transaction = await _context.Database.BeginTransactionAsync();
-                //1.insert newdoc
-                //int? docId = null;
-                //if (file != null)
-                //{
-                //    var fileEntity = await _fileManagerService.SaveFileAsync(file);
-                //    docId = fileEntity.Id;
-                //}
-
-                //2.update product with new docId   
+               
 
                 var product = await _context.Products.FindAsync(id);
                 if (product != null)
@@ -110,11 +99,6 @@ namespace shoppingcart.Server.Controllers
                     _context.Products.Update(product);
                 }
 
-                //3.remove doc, product
-                //if (productReq.docId > 0)
-                //{
-                //    await _fileManagerService.deleteFile((int)productReq.docId);
-                //}
 
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();

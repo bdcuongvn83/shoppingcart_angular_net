@@ -45,12 +45,7 @@ body {
   align-items: center; /* Căn giữa các phần tử theo chiều dọc */
   padding: 10px; /* Khoảng cách giữa container và các phần tử */
 }
-.left-group {
-  display: flex;
-}
-.right-group {
-  display: flex;
-}
+
 .main-header-container-flex .item {
   margin-left: 10px;
 }
@@ -60,6 +55,7 @@ body {
   flex-wrap: wrap; /* Cho phép xuống hàng */
   gap: 16px; /* Khoảng cách giữa các sản phẩm */
   justify-content: space-evenly; /* Căn đều các sản phẩm */
+  padding-top: 10px;
 }
 .margin-top {
   margin-top: 5px;
@@ -81,52 +77,6 @@ body {
   border-radius: 8px; /* Bo góc nhẹ nếu cần */
 }
 
-/* Đảm bảo chiều cao tối thiểu bằng chiều cao màn hình */
-/* :host {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-} */
-
-/* Header không bị co lại */
-/* app-header {
-  flex-shrink: 0; 
-} */
-
-/* Trừ đi chiều cao của header và footer nếu cần */
-/* Chiếm toàn bộ không gian còn lại */
-/* .main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh - 110px);
-} */
-
-/* Footer không bị co lại */
-/* Đẩy footer xuống cuối */
-/* app-footer {
-  flex-shrink: 0; 
-  margin-top: auto; 
-} */
-
-/* Đảm bảo có khoảng cách giữa nhóm bên trái và bên phải */
-/* Căn giữa các phần tử theo chiều dọc */
-/* Khoảng cách giữa container và các phần tử */
-/* .main-header-container-flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-} */
-.left-group {
-  display: flex;
-}
-.right-group {
-  display: flex;
-}
-.main-header-container-flex .item {
-  margin-left: 10px;
-}
 .item_price {
   font-weight: bold;
 }
@@ -283,32 +233,7 @@ select.short {
 .btn.normal {
   background-color: #eee;
 }
-/* .form-row .btn:hover {
-  background-color: #007bff;
-  color: white;
-} */
-/** #eee default     background-color: #cfd7f1;
-    border: 1px solid #06c; */
-/* .form-row .btn:last-child {
-  background-color: #dc3545;
-}
 
-.form-row .btn:last-child:hover {
-  background-color: #c82333;
-} */
-
-/* .form-row .btn:hover {
-  background-color: #007bff;
-  color: white;
-}
-
-.form-row .btn:last-child {
-  background-color: #dc3545;
-}
-
-.form-row .btn:last-child:hover {
-  background-color: #c82333;
-} */
 .form-item-error {
   text-align: left;
   color: red;
@@ -335,4 +260,41 @@ select.short {
   font-family: "Roboto", sans-serif; /* font phổ biến */
   /* margin-left: 4px; */
   vertical-align: middle;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+.search-box {
+  display: flex;
+  align-items: center; /* giúp các phần tử nằm giữa theo chiều cao */
+  gap: 8px; /* khoảng cách giữa các thành phần */
+}
+
+.search-box input {
+  height: 24px; /* hoặc dùng padding để kiểm soát */
+}
+
+.search-button {
+  height: 24px;
+  width: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.right-group {
+  display: flex;
+  align-items: right;
+}
+.left-group {
+  display: flex;
+  align-items: left;
 }

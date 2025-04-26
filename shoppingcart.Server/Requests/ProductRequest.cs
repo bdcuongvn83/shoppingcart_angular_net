@@ -1,4 +1,6 @@
-﻿namespace shoppingcart.Server.Requests
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace shoppingcart.Server.Requests
 {
     public class ProductRequest
     {
@@ -8,7 +10,10 @@
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public int? CategoryId { get; set; }
-       // public IFormFile? File { get; set; } // For file upload
-        
+        public IFormFile? file { get; set; } // For file upload
+       
+        //IFormFile? file
+
+
     }
 }
