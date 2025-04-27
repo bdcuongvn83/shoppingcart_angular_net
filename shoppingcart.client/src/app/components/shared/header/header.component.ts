@@ -16,14 +16,11 @@ export class HeaderComponent {
   constructor(private authService: AuthloginService, private router: Router) {}
 
   logout() {
-    //console.log('isLoggedInNow called');
     this.authService.isLoggedInNow();
-    // console.log('Logout called');
+
     this.authService.logout();
-    // console.log('isLoggedInNow called');
+
     this.authService.isLoggedInNow();
-    //this.router.navigate(['/login']);
-    //throw new Error('Method not implemented.');
   }
   /*************  ✨ Windsurf Command ⭐  *************/
   /**
@@ -31,8 +28,6 @@ export class HeaderComponent {
 
 /*******  3c218047-6ddd-48d4-a43e-7fcf17f51430  *******/
   ngOnInit() {
-    // console.log('HeaderComponent initialized');
-    // console.log('isLoggedInNow called');
     this.authService.isLoggedInNow();
     // Subscribe vào isLoggedIn$ để nhận giá trị khi nó thay đổi
     this.authService.isLoggedIn$.subscribe((status: boolean) => {
@@ -41,7 +36,7 @@ export class HeaderComponent {
     this.authService.userLogin$.subscribe((user: any) => {
       this.loginUser = user; // Cập nhật thông tin người dùng
     });
-    //console.log('isLoggedInNow called');
+
     this.authService.isLoggedInNow();
   }
 }

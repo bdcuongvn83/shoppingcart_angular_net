@@ -32,14 +32,11 @@ export class LoginComponent extends BaseComponent {
   }
 
   handleSubmitForm() {
-    //console.log('handleSubmitForm called');
-    // console.log(this.myForm.value);
     if (this.myForm.valid) {
-      // console.log('Form submitted:', this.myForm.value);
       this.formErrors = []; // Clear errors if any
     } else {
       this.formErrors = this.collectFormErrors(this.myForm);
-      // console.log('Form errors:', this.formErrors);
+
       this.myForm.markAllAsTouched(); // Để highlight các ô lỗi
       return;
     }
@@ -47,22 +44,10 @@ export class LoginComponent extends BaseComponent {
     //update
     this.authService.login(this.myForm).subscribe({
       next: (res) => {
-        //   console.log('Update product:', res);
-        //  console.log('Update product res.status:', res.status);
         if (res.status === 200) {
-          // console.log(
-          //   `Login current status isLoggedInNow:${this.authService.isLoggedInNow()}`
-          // );
-          // console.log('Login current res.body.data', res.body.data);
           let user = res.body.data;
           this.authService.setInfoLoginSucces(res.body.jwt, res.body.data);
 
-          // console.log('Login successfully:');
-          // console.log(
-          //   `Login current status isLoggedInNow:${this.authService.isLoggedInNow()}`
-          // );
-
-          // console.log('Update  successfully:', res);
           if (this.authService.getRedirectUrl() != null) {
             this.router.navigate([this.authService.getRedirectUrl()]);
             this.authService.setRedirectUrl(null); // Reset redirect URL after navigation
@@ -72,13 +57,11 @@ export class LoginComponent extends BaseComponent {
         }
       },
       error: (err) => {
-        // console.error('Error during registration:', err);
         if (err.status === 404) {
           //not found
-          // console.error('Invalid username or password');
+
           this.formErrors.push('Invalid username or password');
         } else {
-          // console.error('An error occurred:', err);
           this.formErrors.push(err);
         }
       },

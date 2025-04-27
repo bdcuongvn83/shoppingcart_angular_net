@@ -19,7 +19,6 @@ export class AuthloginService {
   private redirectUrl: string | null = null;
 
   constructor(private http: HttpClient) {
-    console.log('AuthloginService initialized');
     const token = localStorage.getItem('jwt');
     if (token) {
       // Có thể thêm logic decode token, kiểm tra hạn dùng v.v nếu muốn
@@ -29,8 +28,7 @@ export class AuthloginService {
     }
 
     const user = localStorage.getItem('userLogin');
-    console.log('AuthloginService userLogin:', user);
-    console.log('AuthloginService token:', token);
+
     if (user) {
       this.userLogin.next(JSON.parse(user));
     } else {
@@ -68,17 +66,10 @@ export class AuthloginService {
     localStorage.setItem('jwt', jwt); // Store the token in local storage
 
     localStorage.setItem('userLogin', JSON.stringify(item)); // Store the token in local storage
-    console.log('setInfoLoginSucces called');
-
-    console.log('userLogin:', JSON.stringify(item));
-    // console.log('item:', item);
     this.userLogin.next(item || null); // Update the userLogin status
-    // console.log('userLogin:', this.userLogin.value);
   }
 
   isLoggedInNow(): boolean {
-    // console.log('isLoggedInNow called');
-    // console.log('isLoggedIn:', this.loggedIn.value);
     return this.loggedIn.value;
   }
   setRedirectUrl(url: string | null) {

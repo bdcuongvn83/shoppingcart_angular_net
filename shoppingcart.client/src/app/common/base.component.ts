@@ -2,7 +2,7 @@ import { FormGroup } from '@angular/forms';
 
 export class BaseComponent {
   sayHello() {
-    // console.log('Xin chào từ lớp cha!');
+    // console.log('say something');
   }
 
   protected log(msg: string) {

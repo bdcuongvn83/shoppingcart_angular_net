@@ -55,14 +55,11 @@ export class ProductComponent extends BaseComponent {
   }
 
   ngOnInit() {
-    //console.log('ProductComponent initialized');
     this.productId = Number(this.route.snapshot.paramMap.get('id'));
 
     // Gọi API để lấy danh sách danh mục từ server
     if (this.productId) {
       this.productService.getProductById(this.productId).subscribe((data) => {
-        //  console.log('call api getCategories');
-        //  console.log(`data = ${data}`);
         this.editMode = true;
         this.editMyForm(data);
         this.downloadFileImage(data.docId);
@@ -96,8 +93,6 @@ export class ProductComponent extends BaseComponent {
   // Gọi API để lấy danh sách sản phẩm từ server
 
   handleSubmitForm() {
-    // console.log('handleSubmitForm called');
-    // console.log(this.myForm.value);
     if (this.myForm.valid) {
       this.formErrors = []; // Clear errors if any
     } else {
@@ -107,7 +102,6 @@ export class ProductComponent extends BaseComponent {
       return;
     }
 
-    // console.log(' handleSubmitForm  submit');
     const formDataToSend = this.prepareFormData();
     if (this.productId > 0) {
       //update
@@ -116,7 +110,6 @@ export class ProductComponent extends BaseComponent {
         .subscribe({
           next: (res: HttpResponse<any>) => {
             if (res.status === 200) {
-              // console.log('Update  successfully:', res);
               this.snackbar.open('Update product successfully!', 'OK', {
                 duration: 5000,
                 verticalPosition: 'top',
@@ -136,9 +129,7 @@ export class ProductComponent extends BaseComponent {
     } else {
       this.productService.registerProduct(formDataToSend).subscribe({
         next: (res: HttpResponse<any>) => {
-          // console.log('registerProduct product res.status:', res.status);
           if (res.status === 201) {
-            //  console.log('Product registered successfully:', res);
             this.snackbar.open('Product registered successfully!', 'OK', {
               duration: 5000,
               verticalPosition: 'top',
@@ -156,8 +147,6 @@ export class ProductComponent extends BaseComponent {
         },
       });
     }
-
-    //throw new Error('Method not implemented.');
   }
   prepareFormData(): FormData {
     const formDataToSend = new FormData();
@@ -205,7 +194,6 @@ export class ProductComponent extends BaseComponent {
       // Nếu hợp lệ, lưu file
       this.selectedFile = file;
       this.errorMessage = null;
-      // console.log('Selected file:', this.selectedFile);
     }
   }
   editMyForm(data: Product) {
@@ -216,12 +204,9 @@ export class ProductComponent extends BaseComponent {
     this.myForm.get('description')?.setValue(data.description);
     this.myForm.get('categoryName')?.setValue(data.categoryName);
     this.myForm.get('docId')?.setValue(data.docId);
-
-    // console.log('editMyForm called with data:', data);
   }
 
   ngOnDestroy() {
-    // console.log('ProductComponent destroyed');
     if (this.fileUrl) {
       URL.revokeObjectURL(this.fileUrl);
     }

@@ -35,10 +35,9 @@ export class LoginRegisterComponent extends BaseComponent {
 
     this.authService.register(this.myForm).subscribe({
       next: (res) => {
-        console.log('register product res.status:', res.status);
         if (res.status === 201) {
           this.authService.setInfoLoginSucces(res.body.jwt, res.body.data);
-          console.log('Register successfully:res.body:', res.body);
+
           this.router.navigate(['/home']);
         }
       },
