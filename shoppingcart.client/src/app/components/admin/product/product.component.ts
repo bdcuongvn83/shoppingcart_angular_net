@@ -53,14 +53,14 @@ export class ProductComponent extends BaseComponent {
   }
 
   ngOnInit() {
-    console.log('ProductComponent initialized');
+    //console.log('ProductComponent initialized');
     this.productId = Number(this.route.snapshot.paramMap.get('id'));
 
     // Gọi API để lấy danh sách danh mục từ server
     if (this.productId) {
       this.productService.getProductById(this.productId).subscribe((data) => {
-        console.log('call api getCategories');
-        console.log(`data = ${data}`);
+        //  console.log('call api getCategories');
+        //  console.log(`data = ${data}`);
         this.editMode = true;
         this.editMyForm(data);
         this.downloadFileImage(data.docId);
@@ -130,14 +130,14 @@ export class ProductComponent extends BaseComponent {
         next: (res: HttpResponse<any>) => {
           // console.log('registerProduct product res.status:', res.status);
           if (res.status === 201) {
-            console.log('Product registered successfully:', res);
+            //  console.log('Product registered successfully:', res);
             this.router.navigate(['/productlist']);
           }
         },
         error: (err) => {
           console.error('Error during registration:', err);
           this.formErrors.push(
-            err.error.message || 'Invalid username or password'
+            err?.error?.message || err?.message || err?.error
           );
         },
       });
@@ -158,7 +158,8 @@ export class ProductComponent extends BaseComponent {
 
     formDataToSend.append(
       'categoryId',
-      this.myForm.get('categoryId')?.value?.toString() || '0'
+      //this.myForm.get('categoryId')?.value?.toString() || '1'
+      '1'
     );
     formDataToSend.append(
       'price',
@@ -197,12 +198,12 @@ export class ProductComponent extends BaseComponent {
     // Gán giá trị cho các trường trong form từ dữ liệu sản phẩm
     this.myForm.get('productName')?.setValue(data.productName);
     this.myForm.get('productPrice')?.setValue(data.price);
-    this.myForm.get('categoryId')?.setValue(data.categoryId);
+    this.myForm.get('categoryId')?.setValue(1); //TODO setCategoryId default =1, vi chua lam MH register catergory
     this.myForm.get('description')?.setValue(data.description);
     this.myForm.get('categoryName')?.setValue(data.categoryName);
     this.myForm.get('docId')?.setValue(data.docId);
 
-    console.log('editMyForm called with data:', data);
+    // console.log('editMyForm called with data:', data);
   }
 
   ngOnDestroy() {

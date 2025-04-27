@@ -28,7 +28,14 @@ export class AuthloginService {
       this.loggedIn.next(false);
     }
 
-    console.log('isLoggedIn$:', this.isLoggedIn$);
+    const user = localStorage.getItem('userLogin');
+    console.log('AuthloginService userLogin:', user);
+    console.log('AuthloginService token:', token);
+    if (user) {
+      this.userLogin.next(JSON.parse(user));
+    } else {
+      this.userLogin.next(null);
+    }
   }
 
   register(formGroup: FormGroup): Observable<any> {
@@ -52,15 +59,18 @@ export class AuthloginService {
       // If it exists, remove it from local storage
       localStorage.removeItem('jwt');
     }
+    localStorage.removeItem('userLogin'); // Remove the userLogin from local storage
 
     // localStorage.removeItem('jwt'); // Store the token in local storage
   }
   setInfoLoginSucces(jwt: string, item?: LoginUser) {
     this.loggedIn.next(true); // Update the loggedIn status
     localStorage.setItem('jwt', jwt); // Store the token in local storage
-    // console.log('setInfoLoginSucces called');
-    // console.log('isLoggedIn:', this.loggedIn.value);
-    // console.log('userLogin:', this.userLogin.value);
+
+    localStorage.setItem('userLogin', JSON.stringify(item)); // Store the token in local storage
+    console.log('setInfoLoginSucces called');
+
+    console.log('userLogin:', JSON.stringify(item));
     // console.log('item:', item);
     this.userLogin.next(item || null); // Update the userLogin status
     // console.log('userLogin:', this.userLogin.value);

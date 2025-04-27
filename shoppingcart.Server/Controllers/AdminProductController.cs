@@ -54,39 +54,53 @@ namespace shoppingcart.Server.Controllers
         public async Task<IActionResult> CreateProduct(
         [FromForm] ProductRequest productReq)
         {
-            int? docId = null;
-            var file = productReq.file;
-            if (file != null)
+            try
             {
-                var fileEntity = await _fileManagerService.SaveFileAsync(file);
-                docId = fileEntity.Id;
+                int? docId = null;
+                var file = productReq.file;
+                if (file != null)
+                {
+                    var fileEntity = await _fileManagerService.SaveFileAsync(file);
+                    docId = fileEntity.Id;
+                }
+                var product = new Product
+                {
+                    CategoryId = productReq.CategoryId,
+                    Description = productReq.Description,
+                    Price = productReq.Price,
+                    ProductName = productReq.ProductName,
+                    DocId = docId
+                };
+
+                _context.Products.Add(product);
+                await _context.SaveChangesAsync();
+                return Created("", new { message = "Insert successful", id = product.Id });
+
             }
-            var product = new Product
+            catch (Exception ex)
             {
-                CategoryId = productReq.CategoryId,
-                Description = productReq.Description,
-                Price = productReq.Price,
-                ProductName = productReq.ProductName,
-                DocId = docId
-            };
+                // Ghi log ra console
+                Console.WriteLine("Error during saving: " + ex.Message);
 
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
+                // Hoặc log ra file bằng ILogger (nên dùng)
+                _logger.LogError(ex, "An error occurred while saving data.");
 
-            return Created("", new { message = "Insert successful", id = product.Id });
+                return BadRequest(new { message = ex.Message });
+            }
+
 
         }
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-      
+
         public async Task<IActionResult> Put(int id, [FromForm] ProductRequest productReq)
         {
             try
             {
 
                 using var transaction = await _context.Database.BeginTransactionAsync();
-               
+
 
                 var product = await _context.Products.FindAsync(id);
                 if (product != null)
@@ -108,12 +122,13 @@ namespace shoppingcart.Server.Controllers
             {
                 // Ghi log ra console
                 Console.WriteLine("Error during saving: " + ex.Message);
-               
+
 
                 // Hoặc log ra file bằng ILogger (nên dùng)
                 _logger.LogError(ex, "An error occurred while saving data.");
 
-                return StatusCode(500, "Internal server error: " + ex.Message);
+                //return StatusCode(500, "Internal server error: " + ex.Message);
+                return BadRequest(new { message = ex.Message });
             }
 
         }
@@ -124,29 +139,44 @@ namespace shoppingcart.Server.Controllers
         public async Task<IActionResult> Delete(int id)
 
         {
-            using var transaction = await _context.Database.BeginTransactionAsync();
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            try
             {
-                return NotFound();
-            }
-
-            if (product != null)
-            {
-                if (product.DocId > 0)
+                using var transaction = await _context.Database.BeginTransactionAsync();
+                var product = await _context.Products.FindAsync(id);
+                if (product == null)
                 {
-                    FileEntity file = await _context.FileEntity.FindAsync(product.DocId);
-                    if (file != null)
-                    {
-                        _context.FileEntity.Remove(file);
-
-                    }
+                    return NotFound();
                 }
-                _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
-                await transaction.CommitAsync();
+
+                if (product != null)
+                {
+                    _context.Products.Remove(product);
+                    await _context.SaveChangesAsync();
+                    FileEntity file = null;
+                    if (product.DocId > 0)
+                    {
+                        file = await _context.FileEntity.FindAsync(product.DocId);
+                        if (file != null)
+                        {
+                            _context.FileEntity.Remove(file);
+                        }
+                        await _context.SaveChangesAsync();
+                    }
+
+                    await transaction.CommitAsync();
+                }
+                return Ok(new { message = "Updated successful" });
             }
-            return Ok(new { message = "Updated successful" });
+            catch (Exception ex)
+            {
+                // Ghi log ra console
+                Console.WriteLine("Error during saving: " + ex.Message);
+
+                _logger.LogError(ex, "An error occurred while saving data.");
+
+                //return StatusCode(500, "Internal server error: " + ex.Message);
+                return BadRequest(new { message = ex.Message });
+            }
 
 
         }

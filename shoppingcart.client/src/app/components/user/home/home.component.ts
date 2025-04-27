@@ -26,12 +26,12 @@ export class HomeComponent implements OnInit {
     //throw new Error('Method not implemented.');
     // Gọi API để lấy danh sách sản phẩm từ server
     // Ví dụ: this.productService.getProducts().subscribe(products => this.products = products);
-    console.log(' ProductlistComponent View đã được khởi tạo');
+    // console.log(' ProductlistComponent View đã được khởi tạo');
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
       this.isLoading = false;
-      console.log(' call api getProducts done');
-      console.log(`data = ${data}`);
+      //  console.log(' call api getProducts done');
+      // console.log(`data = ${data}`);
     });
   }
 
@@ -45,8 +45,8 @@ export class HomeComponent implements OnInit {
     this.productService.searchProduct(searchParam).subscribe((data) => {
       this.products = data;
       this.isLoading = false;
-      console.log(' call searchProduct  done');
-      console.log(`data = ${data}`);
+      //console.log(' call searchProduct  done');
+      //console.log(`data = ${data}`);
     });
     //throw new Error('Method not implemented.');
   }
