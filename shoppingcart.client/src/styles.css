@@ -298,3 +298,7 @@ select.short {
   display: flex;
   align-items: left;
 }
+.snackbar-success {
+  background-color: green; /* Màu nền xanh */
+  color: white; /* Màu chữ trắng */
+}

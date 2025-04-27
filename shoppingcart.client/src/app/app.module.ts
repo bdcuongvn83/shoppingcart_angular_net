@@ -21,6 +21,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { AboutComponent } from './components/about/about.component';
 import { SettingComponent } from './components/admin/setting/setting.component';
 import { LoginRegisterComponent } from './components/user/loginregister/loginregister.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { LoginRegisterComponent } from './components/user/loginregister/loginreg
     MatIconModule,
     MatButtonModule,
     FormsModule,
+    MatSnackBarModule,
   ],
   providers: [
     CurrencyPipe,

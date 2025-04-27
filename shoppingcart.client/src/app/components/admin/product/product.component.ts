@@ -14,6 +14,7 @@ import { HttpResponse } from '@angular/common/http';
 import { FileService } from '../../../services/file.service';
 import { BaseComponent } from '../../../common/base.component';
 import { ProductAdminService } from '../../../services/admin/product-admin.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: false, // Đảm bảo đây là standalone component
@@ -47,7 +48,8 @@ export class ProductComponent extends BaseComponent {
     private router: Router,
     private route: ActivatedRoute,
     private productService: ProductAdminService,
-    private fileService: FileService
+    private fileService: FileService,
+    private snackbar: MatSnackBar
   ) {
     super();
   }
@@ -115,6 +117,12 @@ export class ProductComponent extends BaseComponent {
           next: (res: HttpResponse<any>) => {
             if (res.status === 200) {
               // console.log('Update  successfully:', res);
+              this.snackbar.open('Update product successfully!', 'OK', {
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center',
+                panelClass: ['snackbar-success'],
+              });
               this.router.navigate(['/productlist']);
             }
           },
@@ -131,6 +139,12 @@ export class ProductComponent extends BaseComponent {
           // console.log('registerProduct product res.status:', res.status);
           if (res.status === 201) {
             //  console.log('Product registered successfully:', res);
+            this.snackbar.open('Product registered successfully!', 'OK', {
+              duration: 5000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+              panelClass: ['snackbar-success'],
+            });
             this.router.navigate(['/productlist']);
           }
         },

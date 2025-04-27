@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../../../common/confirm-delete-dialog/confirm-delete-dialog.component';
 import { HttpResponse } from '@angular/common/http';
 import { ProductAdminService } from '../../../services/admin/product-admin.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-productlist',
@@ -17,7 +18,8 @@ export class ProductlistComponent implements OnInit {
   constructor(
     private router: Router,
     private productService: ProductAdminService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar
   ) {} // Inject Router
 
   products: Product[] = [];
@@ -59,6 +61,17 @@ export class ProductlistComponent implements OnInit {
             if (res.status === 200) {
               //   console.log('delete  successfully:', res);
               this.products = this.products.filter((p) => p.id !== productId);
+              // this.snackbar.open(
+              // `Xóa sản phẩm ${productName} thành công!`,
+              // 'OK', );
+              this.snackbar.open('delete successfully!', 'OK', {
+                duration: 2000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center',
+                panelClass: ['snackbar-success'],
+              });
+
+              //this.snackbar.open('Xóa sản phẩm thành công!', 'OK', { duration: 2000 });
               //this.router.navigate(['/productlist']);//TODO
             }
           },
