@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using shoppingcart.Server.Services;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,8 +54,11 @@ builder.Services.AddAuthorization();
 
 IServiceCollection serviceCollection =
     builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 36)) // dùng đúng version
+    ));
 
 builder.Services.AddScoped<FileManagerService>();
 builder.Services.AddScoped<AuthService>();
